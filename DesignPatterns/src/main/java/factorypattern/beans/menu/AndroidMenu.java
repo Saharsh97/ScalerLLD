@@ -1,4 +1,4 @@
-package factorypattern;
+package factorypattern.beans.menu;
 
 public class AndroidMenu implements Menu{
     @Override

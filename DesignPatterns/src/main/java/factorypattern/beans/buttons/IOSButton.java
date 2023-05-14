@@ -1,4 +1,4 @@
-package factorypattern;
+package factorypattern.beans.buttons;
 
 public class IOSButton implements Button{
     @Override

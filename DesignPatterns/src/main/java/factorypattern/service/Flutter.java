@@ -1,4 +1,9 @@
-package factorypattern;
+package factorypattern.service;
+
+import factorypattern.enums.SupportedPlatform;
+import factorypattern.factories.AndroidUIFactory;
+import factorypattern.factories.IOSUIFactory;
+import factorypattern.factories.UIFactory;
 
 public class Flutter {
 

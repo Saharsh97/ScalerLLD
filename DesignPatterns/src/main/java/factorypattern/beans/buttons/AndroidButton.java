@@ -1,4 +1,4 @@
-package factorypattern;
+package factorypattern.beans.buttons;
 
 public class AndroidButton implements Button{
     @Override

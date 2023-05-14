@@ -1,5 +1,11 @@
 package factorypattern;
 
+import factorypattern.beans.buttons.Button;
+import factorypattern.beans.menu.Menu;
+import factorypattern.enums.SupportedPlatform;
+import factorypattern.factories.UIFactory;
+import factorypattern.service.Flutter;
+
 public class Client {
     public static void main(String[] args){
         Flutter flutter = new Flutter();
