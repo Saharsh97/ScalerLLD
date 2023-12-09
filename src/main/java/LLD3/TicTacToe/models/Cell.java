@@ -8,7 +8,9 @@ public class Cell {
     private Player player;
     private CellState cellState;
 
-    public Cell(){
+    public Cell(int row, int column){
+        this.setRow(row);
+        this.setColumn(column);
         this.cellState = CellState.EMPTY;
     }
 

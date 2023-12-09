@@ -102,8 +102,28 @@ public class Game {
         this.moves.add(move);
 
         //TODO check winner here!
+        checkWinnerAndUpdateGameState(move);
 
         game.setCurrentPlayerIndex((currentPlayerIndex + 1) % (game.getBoard().getSize()-1));
+    }
+
+    private void checkWinnerAndUpdateGameState(Move move){
+        if(checkWinner(board, move)){
+            this.setGameState(GameState.SUCCESS);
+            this.setWinner(move.getPlayer());
+        }
+        else if(this.getMoves().size() == board.getSize() * board.getSize()){
+            this.setGameState(GameState.DRAW);
+        }
+    }
+
+    private boolean checkWinner(Board board, Move move){
+        for(WinningStrategy winningStrategy: this.winningStrategies){
+            if(winningStrategy.checkWinner(board, move)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Builder getBuilder(){

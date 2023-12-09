@@ -25,36 +25,38 @@ public class Client {
 
         GameController gameController = new GameController();
 
+        int dimension = 3;
         List<Player> players = createPlayers();
-        List<WinningStrategy> winningStrategies = getWinningStrategies();
+        List<WinningStrategy> winningStrategies = getWinningStrategies(dimension);
 
         Game game = gameController.startGame(3, players, winningStrategies);
         System.out.println("Game is starting");
         // after discussion on 2. Game object and single controller.
 
         // can you give me the state of this particular game.
+        gameController.displayBoard(game);
         while(gameController.checkState(game) == GameState.IN_PROGRESS){
             // first, display the board
-            gameController.displayBoard(game);
             // then play the move
             gameController.makeMove(game);
+            gameController.displayBoard(game);
 
             // check state, if winner found, or draw happened.
 
             if(gameController.checkState(game) == GameState.SUCCESS){
-                System.out.println("Winner is " + gameController.getWinner(game).getName());
+                System.out.println("\nWinner is " + gameController.getWinner(game).getName() + "!!");
                 break;
             } else if (gameController.checkState(game) == GameState.DRAW){
-                System.out.println("Game is a Draw!");
+                System.out.println("\nGame is a Draw!");
                 break;
             }
         }
     }
 
-    private static List<WinningStrategy> getWinningStrategies(){
+    private static List<WinningStrategy> getWinningStrategies(int dimension){
         List<WinningStrategy> winningStrategies = new ArrayList<>();
-        winningStrategies.add(new RowWinningStrategy());
-        winningStrategies.add(new ColumnWinningStrategy());
+        winningStrategies.add(new RowWinningStrategy(dimension));
+        winningStrategies.add(new ColumnWinningStrategy(dimension));
         return winningStrategies;
     }
 
