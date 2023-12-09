@@ -36,6 +36,7 @@ public class Cell {
 
     public void setPlayer(Player player) {
         this.player = player;
+        this.cellState = CellState.OCCUPIED;
     }
 
     public CellState getCellState() {

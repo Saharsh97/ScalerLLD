@@ -10,22 +10,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class EasyPlayingStrategy implements BotPlayingStrategy{
+public class MediumPlayingStrategy implements BotPlayingStrategy{
     Player bot;
 
-    public EasyPlayingStrategy(Player botPlayer){
+    public MediumPlayingStrategy(Player botPlayer){
         this.bot = botPlayer;
     }
+
     @Override
     public Move makeMove(Board board) {
-        System.out.println("It's " + bot.getName() + "'s turn. Thinking...\n");
+        System.out.println("It's " + bot.getName() + "'s turn. Thinking so so...\n");
         List<Cell> emptyCellsList = getEmptyCells(board);
 
         Random random = new Random();
         int randomIndex = random.nextInt(emptyCellsList.size());
         Cell randomlyChosenCell = emptyCellsList.get(randomIndex);
 
-        randomlyChosenCell.setPlayer(bot);
         return new Move(randomlyChosenCell, bot);
     }
 

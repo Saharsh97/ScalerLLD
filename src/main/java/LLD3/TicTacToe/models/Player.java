@@ -49,10 +49,7 @@ public class Player {
         chosenCell.setPlayer(this);
         chosenCell.setCellState(CellState.OCCUPIED);
 
-        Move move = new Move();
-        move.setPlayer(this);
-        move.setCell(chosenCell);
-        return move;
+        return new Move(chosenCell, this);
     }
 
     private Cell getValidCellChoiceFromPlayer(Board board){

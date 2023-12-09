@@ -104,7 +104,7 @@ public class Game {
         //TODO check winner here!
         checkWinnerAndUpdateGameState(move);
 
-        game.setCurrentPlayerIndex((currentPlayerIndex + 1) % (game.getBoard().getSize()-1));
+        game.setCurrentPlayerIndex((currentPlayerIndex + 1) % game.getPlayers().size());
     }
 
     private void checkWinnerAndUpdateGameState(Move move){
