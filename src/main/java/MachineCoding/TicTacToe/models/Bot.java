@@ -10,4 +10,9 @@ public class Bot extends Player{
         super(id, name, symbol);
         this.setPlayerType(PlayerType.BOT);
     }
+
+    @Override
+    public void makeMove(Board board){
+        // do some bot thing.
+    }
 }

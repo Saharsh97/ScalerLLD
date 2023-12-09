@@ -8,6 +8,10 @@ public class Cell {
     private CellState cellState;
     private Player player;
 
+    public Cell(){
+        this.cellState = CellState.EMPTY;
+    }
+
     public int getRow() {
         return row;
     }

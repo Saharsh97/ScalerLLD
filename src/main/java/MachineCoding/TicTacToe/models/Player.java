@@ -1,6 +1,9 @@
 package MachineCoding.TicTacToe.models;
 
+import MachineCoding.TicTacToe.models.enums.CellState;
 import MachineCoding.TicTacToe.models.enums.PlayerType;
+
+import java.util.Scanner;
 
 public class Player {
     private int id;
@@ -45,5 +48,27 @@ public class Player {
 
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
+    }
+
+    public void makeMove(Board board){
+
+        System.out.println("Player " + this.getName() + ", make your move");
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Row: ");
+        int row = scanner.nextInt();
+
+        System.out.print("Enter Column: ");
+        int column = scanner.nextInt();
+
+        // 1. validate the row, column inputs, if it is within boundary. ask for inputs again.
+
+        Cell chosenCell = board.getBoard().get(row).get(column);
+
+        // 2. validate that this cell is empty. if not empty, ask for input again.
+
+        chosenCell.setPlayer(this);
+        chosenCell.setCellState(CellState.OCCUPIED);
+
     }
 }
