@@ -69,11 +69,11 @@ public class Client {
         // 8:40
 //        4. Does the above look better, or the below one looks better
         // which one is more readable?
-        Student builder4 = Student.getBuilder()
-                                    .setAge(26)
-                                    .setName("Saharsh")
-                                    .setGradYear(2019)
-                                    .build();
+//        Student builder4 = Student.getBuilder()
+//                                    .setAge(26)
+//                                    .setName("Saharsh")
+//                                    .setGradYear(2019)
+//                                    .build();
         // This looks like plain english! and now the Client doesnt even need to make a Builder object separately
         // fix the code.
         // Previously, until I open the Student, look at Builder, then I get to know what needs to be done.
