@@ -11,21 +11,13 @@ import LLD3.TicTacToe.models.Symbol;
 import LLD3.TicTacToe.models.enums.BotDifficultyLevel;
 import LLD3.TicTacToe.models.enums.GameState;
 import LLD3.TicTacToe.models.enums.PlayerType;
-import LLD3.TicTacToe.models.strategies.winningStrategies.ColumnWinningStrategy;
-import LLD3.TicTacToe.models.strategies.winningStrategies.DiagonalWinningStrategy;
-import LLD3.TicTacToe.models.strategies.winningStrategies.RowWinningStrategy;
-import LLD3.TicTacToe.models.strategies.winningStrategies.WinningStrategy;
+import LLD3.TicTacToe.models.strategies.winningStrategies.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Client {
     public static void main(String[] args) throws BotCountException, PlayerCountDimensionMismatchException, DuplicateSymbolsException {
-        // how will we make our game up and running?
-        // to start the game what should we be doing?
-        // create game.
-        // but client talks to the gameController for everything!
-
         GameController gameController = new GameController();
 
         List<Player> players = createPlayers();
@@ -34,25 +26,18 @@ public class Client {
 
         Game game = gameController.startGame(dimension, players, winningStrategies);
         System.out.println("Game is starting");
-        // after discussion on 2. Game object and single controller.
 
-        // can you give me the state of this particular game.
         gameController.displayBoard(game);
         while(gameController.checkState(game) == GameState.IN_PROGRESS){
-            // first, display the board
-            // then play the move
-            gameController.makeMove(game);
-            gameController.displayBoard(game);
+                gameController.makeMove(game);
+                gameController.displayBoard(game);
+                gameController.checkForUndo(game);
+        }
 
-            // check state, if winner found, or draw happened.
-
-            if(gameController.checkState(game) == GameState.SUCCESS){
-                System.out.println("\nWinner is " + gameController.getWinner(game).getName() + "!!");
-                break;
-            } else if (gameController.checkState(game) == GameState.DRAW){
-                System.out.println("\nGame is a Draw!");
-                break;
-            }
+        if(gameController.checkState(game) == GameState.SUCCESS){
+            System.out.println("\nWinner is " + gameController.getWinner(game).getName() + "!!");
+        } else if (gameController.checkState(game) == GameState.DRAW){
+            System.out.println("\nGame is a Draw!");
         }
     }
 
@@ -61,6 +46,7 @@ public class Client {
         winningStrategies.add(new RowWinningStrategy(dimension));
         winningStrategies.add(new ColumnWinningStrategy(dimension));
         winningStrategies.add(new DiagonalWinningStrategy(dimension));
+        winningStrategies.add(new CornersWinningStrategy());
         return winningStrategies;
     }
 

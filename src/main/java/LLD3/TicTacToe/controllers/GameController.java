@@ -46,7 +46,10 @@ public class GameController {
         return game.getGameState();
     }
 
-    public void undo(Game game){
-
+    public void checkForUndo(Game game){
+        boolean undoHappened = game.checkForUndo();
+        if(undoHappened) {
+            displayBoard(game);
+        }
     }
 }

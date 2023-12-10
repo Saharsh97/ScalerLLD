@@ -3,6 +3,7 @@ package LLD3.TicTacToe.models;
 import LLD3.TicTacToe.exceptions.BotCountException;
 import LLD3.TicTacToe.exceptions.PlayerCountDimensionMismatchException;
 import LLD3.TicTacToe.exceptions.DuplicateSymbolsException;
+import LLD3.TicTacToe.models.enums.CellState;
 import LLD3.TicTacToe.models.enums.GameState;
 import LLD3.TicTacToe.models.enums.PlayerType;
 import LLD3.TicTacToe.models.strategies.winningStrategies.WinningStrategy;
@@ -10,6 +11,7 @@ import LLD3.TicTacToe.models.strategies.winningStrategies.WinningStrategy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 // 4. convert from normal class to builder.
 // what did we do? create an inner static class.
@@ -122,6 +124,39 @@ public class Game {
             if(winningStrategy.checkWinner(board, move)){
                 return true;
             }
+        }
+        return false;
+    }
+
+    public void undo(){
+        int movesTaken = this.getMoves().size();
+        Move lastMove = this.getMoves().get(movesTaken-1);
+
+        this.getMoves().remove(movesTaken-1);
+
+        Cell undoCell = lastMove.getCell();
+        undoCell.setPlayer(null);
+        undoCell.setCellState(CellState.EMPTY);
+
+        for(WinningStrategy winningStrategy: this.getWinningStrategies()){
+            winningStrategy.handleUndo(this.getBoard(), lastMove);
+        }
+
+        this.setCurrentPlayerIndex(this.getCurrentPlayerIndex() != 0 ? this.getCurrentPlayerIndex()-1 : this.getPlayers().size()-1);
+    }
+
+    public boolean checkForUndo(){
+        Move lastMove = this.getMoves().get(this.getMoves().size()-1);
+        if(lastMove.getPlayer().getPlayerType() == PlayerType.BOT){
+            return false;
+        }
+
+        System.out.println("Do you want to Undo?");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+        if(input.equals("Y")){
+            this.undo();
+            return true;
         }
         return false;
     }

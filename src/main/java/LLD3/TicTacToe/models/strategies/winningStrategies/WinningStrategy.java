@@ -16,4 +16,6 @@ import java.util.Map;
 // Draw this on notes first
 public interface WinningStrategy {
     boolean checkWinner(Board board, Move move);
+
+    void handleUndo(Board board, Move lastMove);
 }

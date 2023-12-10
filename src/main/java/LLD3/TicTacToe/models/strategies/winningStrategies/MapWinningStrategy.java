@@ -1,7 +1,6 @@
 package LLD3.TicTacToe.models.strategies.winningStrategies;
 
 import LLD3.TicTacToe.models.Board;
-import LLD3.TicTacToe.models.Move;
 import LLD3.TicTacToe.models.Player;
 
 import java.util.HashMap;
@@ -23,13 +22,16 @@ public abstract class MapWinningStrategy implements WinningStrategy{
 
     boolean checkAndUpdateMap(int type, Player player, Board board){
         int existingCount = countMap.get(type).getOrDefault(player, 0);
-        existingCount++;
-        if(existingCount == board.getSize()){
+        int newCount = existingCount + 1;
+        if(newCount == board.getSize()){
             return true;
         }
-        countMap.get(type).put(player, existingCount);
+        countMap.get(type).put(player, newCount);
         return false;
     }
 
-    public abstract boolean checkWinner(Board board, Move move);
+    void updateMapForUndo(int type, Player player){
+        int existingSymbolCountForThisPlayer = countMap.get(type).get(player);
+        countMap.get(type).put(player, existingSymbolCountForThisPlayer-1);
+    }
 }

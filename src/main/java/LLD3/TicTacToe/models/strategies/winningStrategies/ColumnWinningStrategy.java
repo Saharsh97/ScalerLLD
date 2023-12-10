@@ -4,9 +4,6 @@ import LLD3.TicTacToe.models.Board;
 import LLD3.TicTacToe.models.Move;
 import LLD3.TicTacToe.models.Player;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ColumnWinningStrategy extends MapWinningStrategy{
 
     public ColumnWinningStrategy(int dimension) {
@@ -18,6 +15,14 @@ public class ColumnWinningStrategy extends MapWinningStrategy{
         int column = move.getCell().getColumn();
 
         return checkAndUpdateMap(column, player, board);
+    }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+        Player player = lastMove.getPlayer();
+        int column = lastMove.getCell().getColumn();
+
+        updateMapForUndo(column, player);
     }
 
 }

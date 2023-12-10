@@ -16,11 +16,35 @@ public class DiagonalWinningStrategy extends MapWinningStrategy{
         int row = move.getCell().getRow();
         int column = move.getCell().getColumn();
 
+        boolean updateLeftDiagonalResult = false;
         if(row == column){
-            return checkAndUpdateMap(1, player, board);
-        }else if (row + column == board.getSize()-1){
-            return checkAndUpdateMap(2, player, board);
+            updateLeftDiagonalResult = checkAndUpdateMap(1, player, board);
+        }
+
+        boolean updateRightDiagonalResult = false;
+        if (row + column == board.getSize()-1){
+            updateRightDiagonalResult = checkAndUpdateMap(2, player, board);
+        }
+
+        if (updateLeftDiagonalResult || updateRightDiagonalResult){
+            return true;
         }
         return false;
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+        Player player = lastMove.getPlayer();
+        int row = lastMove.getCell().getRow();
+        int column = lastMove.getCell().getColumn();
+
+        if(row == column){
+            updateMapForUndo(1, player);
+        }
+        if (row + column == board.getSize()-1){
+            updateMapForUndo(2, player);
+        }
+    }
+
+
 }

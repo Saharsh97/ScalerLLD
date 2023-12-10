@@ -19,4 +19,12 @@ public class RowWinningStrategy extends MapWinningStrategy{
 
         return checkAndUpdateMap(row, player, board);
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+        Player player = lastMove.getPlayer();
+        int row = lastMove.getCell().getRow();
+
+        updateMapForUndo(row, player);
+    }
 }
