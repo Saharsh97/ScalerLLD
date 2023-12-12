@@ -88,6 +88,43 @@ public class Game {
         this.winningStrategies = winningStrategies;
     }
 
+
+
+
+
+
+
+
+    public void makeMove(){
+        int currentPlayerIndex = this.getCurrentPlayerIndex();
+        Player currentPlayer = this.getPlayers().get(currentPlayerIndex);
+
+        Move move = currentPlayer.makeMove(this.getBoard());
+        this.moves.add(move);
+
+        // update the countMaps
+        for(WinningStrategy winningStrategy: this.winningStrategies){
+            winningStrategy.updateCount(this.getBoard(), move);
+
+            if(winningStrategy.checkWinner(board, move)){
+                this.setWinner(currentPlayer);
+                this.setGameState(GameState.COMPLETED);
+                return;
+            }
+        }
+
+        if(this.moves.size() == board.getSize() * board.getSize()){
+            this.setGameState(GameState.DRAW);
+            return;
+        }
+
+        int nextPlayerIndex = (currentPlayerIndex + 1) % (this.getPlayers().size());
+        this.setCurrentPlayerIndex(nextPlayerIndex);
+    }
+
+
+
+
     public static Builder getBuilder(){
         return new Builder();
     }

@@ -50,25 +50,56 @@ public class Player {
         this.playerType = playerType;
     }
 
-    public void makeMove(Board board){
-
-        System.out.println("Player " + this.getName() + ", make your move");
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Row: ");
-        int row = scanner.nextInt();
-
-        System.out.print("Enter Column: ");
-        int column = scanner.nextInt();
-
-        // 1. validate the row, column inputs, if it is within boundary. ask for inputs again.
-
-        Cell chosenCell = board.getBoard().get(row).get(column);
-
-        // 2. validate that this cell is empty. if not empty, ask for input again.
+    public Move makeMove(Board board){
+        Cell chosenCell = getValidChosenCell(board);
 
         chosenCell.setPlayer(this);
         chosenCell.setCellState(CellState.OCCUPIED);
 
+        Move move = new Move();
+        move.setPlayer(this);
+        move.setCell(chosenCell);
+        return move;
+    }
+
+    public Cell getValidChosenCell(Board board){
+        while(true) {
+            System.out.println("Player " + this.getName() + ", make your move");
+
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter Row: ");
+            int row = scanner.nextInt();
+
+            System.out.print("Enter Column: ");
+            int column = scanner.nextInt();
+
+            // 1. validate the row, column inputs, if it is within boundary. ask for inputs again.
+            if(!isValidInput(row, column, board.getSize())){
+                continue;
+            }
+
+            Cell chosenCell = board.getBoard().get(row).get(column);
+
+            // 2. validate that this cell is empty. if not empty, ask for input again.
+            if(isValidCellChosen(chosenCell)){
+                return chosenCell;
+            }
+        }
+    }
+
+    private boolean isValidInput(int row, int column, int size){
+        if(row >= 0 && row < size && column >= 0 && column < size){
+            return true;
+        }
+        System.out.println("\nPlease provide the inputs within boundary! Please try again...\n");
+        return false;
+    }
+
+    private boolean isValidCellChosen(Cell chosenCell){
+        if (chosenCell.getCellState() != CellState.EMPTY) {
+            System.out.println("\nThis cell is already occupied! Please try again...\n");
+            return false;
+        }
+        return true;
     }
 }

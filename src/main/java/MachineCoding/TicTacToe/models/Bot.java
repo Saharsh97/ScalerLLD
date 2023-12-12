@@ -12,7 +12,8 @@ public class Bot extends Player{
     }
 
     @Override
-    public void makeMove(Board board){
+    public Move makeMove(Board board){
         // do some bot thing.
+        return null;
     }
 }

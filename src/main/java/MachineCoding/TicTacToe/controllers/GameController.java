@@ -10,6 +10,7 @@ import MachineCoding.TicTacToe.models.winningStrategies.WinningStrategy;
 
 import java.util.List;
 
+// controller's responsibility is to just forward the request to the appropriate logic -> model, services
 public class GameController {
 
     public Game startGame(int dimension, List<Player> players, List<WinningStrategy> winningStrategies) throws PlayerCountException, DuplicateSymbolException, BotCountException, DimensionException {
@@ -25,16 +26,7 @@ public class GameController {
     }
 
     public void makeMove(Game game){
-        int currentPlayerIndex = game.getCurrentPlayerIndex();
-        Player currentPlayer = game.getPlayers().get(currentPlayerIndex);
-
-        currentPlayer.makeMove(game.getBoard());
-        // 3. update the game's list of Moves
-
-        // check if there is a winner after this move.
-
-        int nextPlayerIndex = (currentPlayerIndex + 1) % (game.getBoard().getSize()-1);
-        game.setCurrentPlayerIndex(nextPlayerIndex);
+        game.makeMove();
     }
 
     public void checkWinner(Game game){

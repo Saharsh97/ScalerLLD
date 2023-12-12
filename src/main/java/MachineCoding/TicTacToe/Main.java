@@ -9,9 +9,7 @@ import MachineCoding.TicTacToe.models.exceptions.BotCountException;
 import MachineCoding.TicTacToe.models.exceptions.DimensionException;
 import MachineCoding.TicTacToe.models.exceptions.DuplicateSymbolException;
 import MachineCoding.TicTacToe.models.exceptions.PlayerCountException;
-import MachineCoding.TicTacToe.models.winningStrategies.ColumnWinningStrategy;
-import MachineCoding.TicTacToe.models.winningStrategies.RowWinningStrategy;
-import MachineCoding.TicTacToe.models.winningStrategies.WinningStrategy;
+import MachineCoding.TicTacToe.models.winningStrategies.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +25,24 @@ public class Main {
         players.add(new Player(2, "Rajat", new Symbol('O')));
 
         List<WinningStrategy> winningStrategies = new ArrayList<>();
-        winningStrategies.add(new RowWinningStrategy());
-        winningStrategies.add(new ColumnWinningStrategy());
+        winningStrategies.add(new RowWinningStrategy(dimension, players));
+        winningStrategies.add(new ColumnWinningStrategy(dimension, players));
+        winningStrategies.add(new DiagonalWinningStrategy(players));
+        winningStrategies.add(new CornersWinningStrategy());
 
         Game game = gameController.startGame(dimension, players, winningStrategies);
         System.out.println("game has been started");
         while(game.getGameState() == GameState.IN_PROGRESS){
             gameController.displayBoard(game);
             gameController.makeMove(game);
+        }
 
-            if(game.getGameState() == GameState.COMPLETED){
-                System.out.println("Game is completed. Winner is " + game.getWinner().getName());
-                break;
-            }
-            if(game.getGameState() == GameState.DRAW){
-                System.out.println("Game is a Draw");
-                break;
-            }
+        gameController.displayBoard(game);
+        if(game.getGameState() == GameState.COMPLETED){
+            System.out.println("Game is completed. Winner is " + game.getWinner().getName());
+        }
+        if(game.getGameState() == GameState.DRAW){
+            System.out.println("Game is a Draw");
         }
     }
 }
