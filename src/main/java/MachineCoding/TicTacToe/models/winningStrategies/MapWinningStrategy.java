@@ -39,4 +39,10 @@ public abstract class MapWinningStrategy implements WinningStrategy{
         }
         return false;
     }
+
+    public void handleMapUndo(int key, Player player){
+        int existingCount = countMap.get(key).get(player);
+        int newCount = existingCount - 1;
+        countMap.get(key).put(player, newCount);
+    }
 }

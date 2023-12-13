@@ -52,4 +52,20 @@ public class DiagonalWinningStrategy extends MapWinningStrategy{
 
         return false;
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove){
+        Player player = lastMove.getPlayer();
+        Cell cell = lastMove.getCell();
+        int row = cell.getRow();
+        int column = cell.getColumn();
+
+        if(row == column){
+            handleMapUndo(0, player);
+        }
+        if(row + column == board.getSize() - 1){
+            handleMapUndo(1, player);
+        }
+
+    }
 }

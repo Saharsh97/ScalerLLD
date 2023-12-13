@@ -57,4 +57,9 @@ public class CornersWinningStrategy implements WinningStrategy{
         }
         return false;
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove) {
+
+    }
 }

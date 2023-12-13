@@ -33,7 +33,7 @@ public class GameController {
 
     }
 
-    public void undo(Game game){
-
+    public void checkForUndo(Game game){
+        game.checkForUndo();
     }
 }

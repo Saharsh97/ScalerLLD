@@ -32,6 +32,15 @@ public class ColumnWinningStrategy extends MapWinningStrategy{
 
         return checkCountMapForWinner(column, player, board.getSize());
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove){
+        Player player = lastMove.getPlayer();
+        Cell cell = lastMove.getCell();
+        int column = cell.getColumn();
+
+        handleMapUndo(column, player);
+    }
 }
 
 

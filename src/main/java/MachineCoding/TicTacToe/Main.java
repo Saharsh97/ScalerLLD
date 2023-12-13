@@ -34,9 +34,11 @@ public class Main {
 
         Game game = gameController.startGame(dimension, players, winningStrategies);
         System.out.println("game has been started");
+        gameController.displayBoard(game);
         while(game.getGameState() == GameState.IN_PROGRESS){
-            gameController.displayBoard(game);
             gameController.makeMove(game);
+            gameController.displayBoard(game);
+            gameController.checkForUndo(game);
         }
 
         gameController.displayBoard(game);

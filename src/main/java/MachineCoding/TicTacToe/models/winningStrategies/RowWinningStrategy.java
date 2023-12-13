@@ -33,4 +33,13 @@ public class RowWinningStrategy extends MapWinningStrategy{
 
         return checkCountMapForWinner(row, player, board.getSize());
     }
+
+    @Override
+    public void handleUndo(Board board, Move lastMove){
+        Player player = lastMove.getPlayer();
+        Cell cell = lastMove.getCell();
+        int row = cell.getRow();
+
+        handleMapUndo(row, player);
+    }
 }

@@ -1,5 +1,6 @@
 package MachineCoding.TicTacToe.models;
 
+import MachineCoding.TicTacToe.models.enums.CellState;
 import MachineCoding.TicTacToe.models.enums.GameState;
 import MachineCoding.TicTacToe.models.enums.PlayerType;
 import MachineCoding.TicTacToe.models.exceptions.BotCountException;
@@ -11,6 +12,7 @@ import MachineCoding.TicTacToe.models.winningStrategies.WinningStrategy;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
     private Board board;
@@ -122,7 +124,44 @@ public class Game {
         this.setCurrentPlayerIndex(nextPlayerIndex);
     }
 
+    public void checkForUndo(){
+        int movesSize = this.moves.size();
+        Move lastMove = this.moves.get(movesSize-1);
+        if(lastMove.getPlayer().getPlayerType() == PlayerType.BOT){
+            return;
+        }
 
+        System.out.println("Do you want to Undo ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+        if(input.equals("Y")){
+            performUndo();
+            return;
+        }
+    }
+
+    private void performUndo(){
+        // update moves list
+        int movesSize = this.moves.size();
+        Move lastMove = this.moves.get(movesSize-1);
+        this.moves.remove(movesSize-1);
+
+
+        // reset the player index
+        int currentIndex = this.currentPlayerIndex;
+        int newIndex = currentIndex != 0 ? currentIndex - 1 : players.size()-1;
+        this.setCurrentPlayerIndex(newIndex);
+
+        // reset the cell
+
+        lastMove.getCell().setPlayer(null);
+        lastMove.getCell().setCellState(CellState.EMPTY);
+
+        // decrement the countMap
+        for(WinningStrategy winningStrategy: getWinningStrategies()){
+            winningStrategy.handleUndo(board, lastMove);
+        }
+    }
 
 
     public static Builder getBuilder(){
