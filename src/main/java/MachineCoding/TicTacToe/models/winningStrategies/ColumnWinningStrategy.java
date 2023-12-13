@@ -9,23 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ColumnWinningStrategy implements WinningStrategy{
-    private int dimension;
-    private Map<Integer, Map<Player, Integer>> countMap;
+public class ColumnWinningStrategy extends MapWinningStrategy{
 
-    public ColumnWinningStrategy(int dimension, List<Player> playerList){
-        this.dimension = dimension;
-        this.countMap = new HashMap<>();
-        initialiseCountMap(playerList);
-    }
-
-    private void initialiseCountMap(List<Player> playerList){
-        for(int i = 0; i < dimension; i++){
-            countMap.put(i, new HashMap<>());
-            for(Player player: playerList){
-                countMap.get(i).put(player, 0);
-            }
-        }
+    public ColumnWinningStrategy(int dimension, List<Player> players){
+        super(dimension, players);
     }
 
     @Override
@@ -34,9 +21,7 @@ public class ColumnWinningStrategy implements WinningStrategy{
         Player player = lastMove.getPlayer();
         int column = cell.getColumn();
 
-        int existingCount = countMap.get(column).get(player);
-        int newCount = existingCount + 1;
-        countMap.get(column).put(player, newCount);
+        updateCountMap(column, player);
     }
 
     @Override
@@ -45,10 +30,7 @@ public class ColumnWinningStrategy implements WinningStrategy{
         Player player = lastMove.getPlayer();
         int column = cell.getColumn();
 
-        if(countMap.get(column).get(player) == dimension){
-            return true;
-        }
-        return false;
+        return checkCountMapForWinner(column, player, board.getSize());
     }
 }
 

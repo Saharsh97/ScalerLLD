@@ -20,6 +20,16 @@ public class CornersWinningStrategy implements WinningStrategy{
         int size = board.getSize();
         Player player = lastMove.getPlayer();
         char playerSymbol = player.getSymbol().getaChar();
+        Cell cell = lastMove.getCell();
+        int row = cell.getRow();
+        int column = cell.getColumn();
+
+        if(!(row==0 && column==0) &&
+                !(row==size-1 && column==0) &&
+                !(row==0 && column==size-1) &&
+                !(row==size-1 && column==size-1)){
+            return false;
+        }
 
         List<List<Cell>> actualBoard = board.getBoard();
         Cell topLeftCell = actualBoard.get(0).get(0);

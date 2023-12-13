@@ -9,35 +9,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RowWinningStrategy implements WinningStrategy{
+public class RowWinningStrategy extends MapWinningStrategy{
 
-    private int dimension;
-    private Map<Integer, Map<Player, Integer>> countMap;
-
-    public RowWinningStrategy(int dimension, List<Player> playerList){
-        this.dimension = dimension;
-        this.countMap = new HashMap<>();
-        initialiseCountMap(playerList);
+    public RowWinningStrategy(int dimension, List<Player> players){
+        super(dimension, players);
     }
 
-    private void initialiseCountMap(List<Player> playerList){
-        for(int i = 0; i < dimension; i++){
-            countMap.put(i, new HashMap<>());
-            for(Player player: playerList){
-                countMap.get(i).put(player, 0);
-            }
-        }
-    }
 
     @Override
     public void updateCount(Board board, Move lastMove){
-        Cell cell = lastMove.getCell();
+        Cell cell = lastMove.getCell(); // 2, 1
         Player player = lastMove.getPlayer();
-        int row = cell.getRow();
+        int row = cell.getRow();    // 2
 
-        int existingCount = countMap.get(row).get(player);
-        int newCount = existingCount + 1;
-        countMap.get(row).put(player, newCount);
+        updateCountMap(row, player);
     }
 
     @Override
@@ -46,9 +31,6 @@ public class RowWinningStrategy implements WinningStrategy{
         Player player = lastMove.getPlayer();
         int row = cell.getRow();
 
-        if(countMap.get(row).get(player) == dimension){
-            return true;
-        }
-        return false;
+        return checkCountMapForWinner(row, player, board.getSize());
     }
 }

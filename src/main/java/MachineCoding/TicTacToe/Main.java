@@ -1,9 +1,11 @@
 package MachineCoding.TicTacToe;
 
 import MachineCoding.TicTacToe.controllers.GameController;
+import MachineCoding.TicTacToe.models.Bot;
 import MachineCoding.TicTacToe.models.Game;
 import MachineCoding.TicTacToe.models.Player;
 import MachineCoding.TicTacToe.models.Symbol;
+import MachineCoding.TicTacToe.models.enums.BotDifficultyLevel;
 import MachineCoding.TicTacToe.models.enums.GameState;
 import MachineCoding.TicTacToe.models.exceptions.BotCountException;
 import MachineCoding.TicTacToe.models.exceptions.DimensionException;
@@ -22,7 +24,7 @@ public class Main {
 
         List<Player> players = new ArrayList<>();
         players.add(new Player(1, "Saharsh", new Symbol('X')));
-        players.add(new Player(2, "Rajat", new Symbol('O')));
+        players.add(new Bot(2, "SastaBot", new Symbol('B'), BotDifficultyLevel.HARD));
 
         List<WinningStrategy> winningStrategies = new ArrayList<>();
         winningStrategies.add(new RowWinningStrategy(dimension, players));

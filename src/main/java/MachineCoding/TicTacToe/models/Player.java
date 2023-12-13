@@ -56,9 +56,7 @@ public class Player {
         chosenCell.setPlayer(this);
         chosenCell.setCellState(CellState.OCCUPIED);
 
-        Move move = new Move();
-        move.setPlayer(this);
-        move.setCell(chosenCell);
+        Move move = new Move(chosenCell, this);
         return move;
     }
 
