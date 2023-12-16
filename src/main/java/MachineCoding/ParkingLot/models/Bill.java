@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Bill extends BaseModel{
+    private Long amount;
     private String billNumber;
     private Date exitTime;
     private Ticket ticket;
