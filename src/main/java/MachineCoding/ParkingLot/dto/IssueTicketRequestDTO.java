@@ -7,7 +7,7 @@ public class IssueTicketRequestDTO {
     private String vehicleNumber;
     private String vehicleOwnerName;
     private VehicleType vehicleType;
-    private String gateId;
+    private Long gateId;
     private String priority;
 
 
@@ -35,11 +35,11 @@ public class IssueTicketRequestDTO {
         this.vehicleType = vehicleType;
     }
 
-    public String getGateId() {
+    public Long getGateId() {
         return gateId;
     }
 
-    public void setGateId(String gateId) {
+    public void setGateId(Long gateId) {
         this.gateId = gateId;
     }
 }

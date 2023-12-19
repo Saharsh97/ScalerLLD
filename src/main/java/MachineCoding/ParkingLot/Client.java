@@ -8,7 +8,7 @@ import MachineCoding.ParkingLot.dto.enums.ResponseStatus;
 public class Client {
     public static void main(String[] args) {
         IssueTicketRequestDTO requestDTO = new IssueTicketRequestDTO();
-        requestDTO.setGateId("1");
+        requestDTO.setGateId(1L);
         requestDTO.setVehicleNumber("MH03AZ7775");
 
         TicketController controller = new TicketController();
