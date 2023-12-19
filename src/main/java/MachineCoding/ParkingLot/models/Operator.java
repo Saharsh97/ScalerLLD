@@ -4,6 +4,11 @@ public class Operator extends BaseModel{
     private String empId;
     private String name;
 
+    public Operator(String empId, String name) {
+        this.empId = empId;
+        this.name = name;
+    }
+
     public String getEmpId() {
         return empId;
     }

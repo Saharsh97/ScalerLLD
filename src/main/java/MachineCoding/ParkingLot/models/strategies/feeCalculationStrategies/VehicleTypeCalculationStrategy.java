@@ -1,0 +1,4 @@
+package MachineCoding.ParkingLot.models.strategies.feeCalculationStrategies;
+
+public class VehicleTypeCalculationStrategy implements FeeCalculationStrategy{
+}

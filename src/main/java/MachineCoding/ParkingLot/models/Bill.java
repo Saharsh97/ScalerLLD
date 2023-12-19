@@ -15,6 +15,8 @@ public class Bill extends BaseModel{
     private List<Payment> payments;
     private BillStatus billStatus;
 
+    public Bill(){}
+
     public String getBillNumber() {
         return billNumber;
     }

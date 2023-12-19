@@ -1,10 +1,15 @@
 package MachineCoding.ParkingLot.models;
 
+import MachineCoding.ParkingLot.models.enums.FeeCalculationStrategyType;
 import MachineCoding.ParkingLot.models.enums.ParkingLotStatus;
+import MachineCoding.ParkingLot.models.enums.SlotAllocationStrategyType;
 import MachineCoding.ParkingLot.models.enums.VehicleType;
 import MachineCoding.ParkingLot.models.strategies.feeCalculationStrategies.FeeCalculationStrategy;
+import MachineCoding.ParkingLot.models.strategies.feeCalculationStrategies.HourlyCalculationStrategy;
+import MachineCoding.ParkingLot.models.strategies.slotAllocationStrategies.RandomSlotAllocationStrategy;
 import MachineCoding.ParkingLot.models.strategies.slotAllocationStrategies.SlotAllocationStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // break till 8:25
@@ -14,8 +19,17 @@ public class ParkingLot extends BaseModel{
     private List<Gate> gates;
     private List<VehicleType> allowedVehicleTypes;
     private ParkingLotStatus parkingLotStatus;
-    private FeeCalculationStrategy feeCalculationStrategy;
-    private SlotAllocationStrategy slotAllocationStrategy;
+    private FeeCalculationStrategyType feeCalculationStrategyType;
+    private SlotAllocationStrategyType slotAllocationStrategyType;
+
+    public ParkingLot() {
+        this.parkingFloors = new ArrayList<>();
+        this.gates = new ArrayList<>();
+        this.allowedVehicleTypes = new ArrayList<>();
+        this.parkingLotStatus = ParkingLotStatus.OPEN;
+        this.feeCalculationStrategyType = FeeCalculationStrategyType.HOURLY;         // creating direct objects.
+        this.slotAllocationStrategyType = SlotAllocationStrategyType.RANDOM;
+    }
 
     public List<ParkingFloor> getParkingFloors() {
         return parkingFloors;
@@ -49,19 +63,19 @@ public class ParkingLot extends BaseModel{
         this.parkingLotStatus = parkingLotStatus;
     }
 
-    public FeeCalculationStrategy getFeeCalculationStrategy() {
-        return feeCalculationStrategy;
+    public FeeCalculationStrategyType getFeeCalculationStrategyType() {
+        return feeCalculationStrategyType;
     }
 
-    public void setFeeCalculationStrategy(FeeCalculationStrategy feeCalculationStrategy) {
-        this.feeCalculationStrategy = feeCalculationStrategy;
+    public void setFeeCalculationStrategyType(FeeCalculationStrategyType feeCalculationStrategyType) {
+        this.feeCalculationStrategyType = feeCalculationStrategyType;
     }
 
-    public SlotAllocationStrategy getSlotAllocationStrategy() {
-        return slotAllocationStrategy;
+    public SlotAllocationStrategyType getSlotAllocationStrategyType() {
+        return slotAllocationStrategyType;
     }
 
-    public void setSlotAllocationStrategy(SlotAllocationStrategy slotAllocationStrategy) {
-        this.slotAllocationStrategy = slotAllocationStrategy;
+    public void setSlotAllocationStrategyType(SlotAllocationStrategyType slotAllocationStrategyType) {
+        this.slotAllocationStrategyType = slotAllocationStrategyType;
     }
 }

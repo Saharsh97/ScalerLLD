@@ -6,9 +6,20 @@ import MachineCoding.ParkingLot.dto.enums.ResponseStatus;
 import MachineCoding.ParkingLot.models.Ticket;
 import MachineCoding.ParkingLot.services.TicketService;
 
+// 10 controllers, all of them are using TicketService methods.
+// you will make 10 different service objects.
+
+// the same can be achieved, by having reference of 1 single service object.
+// and all the controllers, use the reference, and call the methods.
+
 public class TicketController {
 
-    TicketService ticketService = new TicketService();
+    // dependency injection.
+    TicketService ticketService;
+
+    public TicketController(TicketService ticketService){
+        this.ticketService = ticketService;
+    }
 
     public IssueTicketResponseDTO issueTicket(IssueTicketRequestDTO requestDTO){
         // validations

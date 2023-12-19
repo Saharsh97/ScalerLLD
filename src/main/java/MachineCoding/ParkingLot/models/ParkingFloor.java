@@ -3,6 +3,7 @@ package MachineCoding.ParkingLot.models;
 import MachineCoding.ParkingLot.models.enums.ParkingFloorStatus;
 import MachineCoding.ParkingLot.models.enums.VehicleType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingFloor extends BaseModel{
@@ -10,6 +11,13 @@ public class ParkingFloor extends BaseModel{
     private List<ParkingSlot> parkingSlots;
     private List<VehicleType> allowedVehicleTypes;
     private ParkingFloorStatus parkingFloorStatus;
+
+    public ParkingFloor(int floorNumber) {
+        this.floorNumber = floorNumber;
+        this.parkingSlots = new ArrayList<>();
+        this.allowedVehicleTypes = new ArrayList<>();
+        this.parkingFloorStatus = ParkingFloorStatus.OPEN;
+    }
 
     public int getFloorNumber() {
         return floorNumber;
