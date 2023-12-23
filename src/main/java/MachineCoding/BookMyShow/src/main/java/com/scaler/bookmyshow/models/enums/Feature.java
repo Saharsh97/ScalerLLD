@@ -4,5 +4,7 @@ public enum Feature {
     THREE_D,
     TWO_D,
     DOLBY_AUDIO,
-    ULTRA_HD
+    DOLBY_ATMOS,
+    FOUR_K,
+    HD
 }
