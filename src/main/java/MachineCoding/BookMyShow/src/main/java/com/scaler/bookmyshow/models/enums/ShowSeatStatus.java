@@ -1,7 +1,7 @@
 package com.scaler.bookmyshow.models.enums;
 
 public enum ShowSeatStatus {
-    AVAILABLE,
     BOOKED,
-    BLOCKED     // why?? for taking a lock.
+    AVAILABLE,
+    BLOCKED     // handle the locking of the seats.
 }
