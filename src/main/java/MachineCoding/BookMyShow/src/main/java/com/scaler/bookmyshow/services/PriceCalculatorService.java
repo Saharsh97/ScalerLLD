@@ -19,26 +19,27 @@ public class PriceCalculatorService {
 
     public int calculatePrice(List<ShowSeat> showSeats, Show show){
         // does ShowSeat have the price? no, ShowSeatType has the price.
+        // price stored in DB only.
 
-        // 1. get seatStypes for all the selected seats
-        // 2. Then get the amount.
+        // 1. get seatStypes for the given show.
+        // 2. I know seatType and its price for this show.
+        // get the price of each of the seats given in ShowSeat.
+        // 3. Then get the amount.
 
         // create ShowSeatTypeRepository.
         // find all ShowSeatTypes, given a show id.
-        // the price values are stored in db only!
         List<ShowSeatType> dbShowSeatTypes = showSeatTypeRepository.findAllByShow(show);
 
         int amount = 0;
         for(ShowSeat selectedShowSeat: showSeats){
             SeatType selectedSeatType = selectedShowSeat.getSeat().getSeatType();
-            ShowSeatType dbShowSeat = dbShowSeatTypes.stream().filter(x -> x.getSeatType().equals(selectedSeatType)).findFirst().get();
-            amount += dbShowSeat.getPrice();
+            ShowSeatType dbShowSeatType = dbShowSeatTypes.stream().filter(x -> x.getSeatType().equals(selectedSeatType)).findFirst().get();
+            amount += dbShowSeatType.getPrice();
         }
         // now add the PriceCalculatorService to the BookingService.
         return amount;
     }
 }
-
 
 // Animal23 A1  GOLD
 // Animal23 A2  GOLD
@@ -47,8 +48,8 @@ public class PriceCalculatorService {
 
 // in DB:
 // show_id,     seat_type,  price
-// animal23,    GOLD,       200
 // animal23,    SILVER,     150
+// animal23,    GOLD,       200
 // animal23,    PLATINUM,   300
 
 //

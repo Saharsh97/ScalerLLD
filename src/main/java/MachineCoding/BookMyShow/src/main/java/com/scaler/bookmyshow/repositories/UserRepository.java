@@ -10,7 +10,9 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     // JpaRepository <T, ID> => T is the entity type, Id is the key.
 
-    // now you will auto suggestions, like findById
+    // now you will get auto suggestions, like findById
+    // these are already implemented by JPA.
+    // no need to write the implementations yourself!
 
 }
 

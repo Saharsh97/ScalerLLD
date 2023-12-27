@@ -12,7 +12,5 @@ public class BookMovieResponseDTO {
     private int amount;
     // no need to send theatre and movie info, he is already on that page.
     // payment not done yet. only booking id made now.
-    // after getting the bookingId, the payment will be done.
-
-
+    // after getting the bookingId, the summary will be shown, and then payment.
 }

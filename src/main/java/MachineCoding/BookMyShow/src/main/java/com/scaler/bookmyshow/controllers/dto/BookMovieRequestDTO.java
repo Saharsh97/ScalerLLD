@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class BookMovieRequestDTO {
-    private List<Long> showSeatIds;
+    private List<Long> showSeatIds; // explain, how showSeatsIds here (ipad)
     private Long userId;
     private Long showId;
 }

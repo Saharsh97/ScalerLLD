@@ -33,10 +33,10 @@ public class BookingController {
 
     // 1. return type and the parameters? DTOs
     public BookMovieResponseDTO bookMovie(BookMovieRequestDTO requestDTO){
-        // 2. which model will I check here? that I should get parameters from client.
-        // I will return a booking object. so what parameters should I get from user, and what should I return.
-        // ShowSeat will be given by the client. client gives this show, and these seats
-        // client decides the show and his seats.
+        // 2. which model will I check here?
+        // what all booking details will be given by the client,
+        // for which I have to create a booking object?
+        // ShowSeat list will be given by the client.
 
         // 3. conversation with whom? BookingService.
 
