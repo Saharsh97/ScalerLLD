@@ -14,6 +14,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // these are already implemented by JPA.
     // no need to write the implementations yourself!
 
+    // 1.2
+    Optional<User> findByEmail(String email);
 }
 
 // JPA is interface

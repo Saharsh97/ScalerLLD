@@ -21,7 +21,7 @@ public class PriceCalculatorService {
         // does ShowSeat have the price? no, ShowSeatType has the price.
         // price stored in DB only.
 
-        // 1. get seatStypes for the given show.
+        // 1. get ShowSeatTypes for the given show.
         // 2. I know seatType and its price for this show.
         // get the price of each of the seats given in ShowSeat.
         // 3. Then get the amount.
