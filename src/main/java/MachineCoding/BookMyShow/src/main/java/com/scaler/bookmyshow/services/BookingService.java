@@ -32,13 +32,15 @@ public class BookingService {
     private ShowRepository showRepository;
     private ShowSeatRepository showSeatRepository;
     private BookingRepository bookingRepository;
+    private PriceCalculatorService priceCalculatorService;
 
     @Autowired
-    public BookingService(UserRepository userRepository, ShowRepository showRepository, ShowSeatRepository showSeatRepository, BookingRepository bookingRepository){
+    public BookingService(UserRepository userRepository, ShowRepository showRepository, ShowSeatRepository showSeatRepository, BookingRepository bookingRepository, PriceCalculatorService priceCalculatorService){
         this.userRepository = userRepository;
         this.showRepository = showRepository;
         this.showSeatRepository = showSeatRepository;
         this.bookingRepository = bookingRepository;
+        this.priceCalculatorService = priceCalculatorService;
     }
 
     @Transactional(isolation = Isolation.SERIALIZABLE)
@@ -103,7 +105,7 @@ public class BookingService {
         booking.setBookedAt(new Date());
         booking.setShowSeats(savedShowSeats);
         booking.setBookingStatus(BookingStatus.PENDING);
-        booking.setAmount(0);
+        booking.setAmount(priceCalculatorService.calculatePrice(savedShowSeats, bookedShow));   // we have to calculate today
         booking.setPayments(new ArrayList<>());
 
         //
