@@ -5,7 +5,7 @@ import com.scaler.splitwise.controllers.DTOs.SettleUpGroupResponseDTO;
 import com.scaler.splitwise.controllers.DTOs.SettleUpUserRequestDTO;
 import com.scaler.splitwise.controllers.DTOs.SettleUpUserResponseDTO;
 import com.scaler.splitwise.controllers.enums.ResponseStatus;
-import com.scaler.splitwise.models.Expense;
+import com.scaler.splitwise.models.Transaction;
 import com.scaler.splitwise.service.SettleUpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ public class SettleUpController {
         SettleUpUserResponseDTO responseDTO = new SettleUpUserResponseDTO();
 
         try{
-            List<Expense> settleUpTransactions = settleUpService.settleUpUser(requestDTO.getUserId());
+            List<Transaction> settleUpTransactions = settleUpService.settleUpUser(requestDTO.getUserId());
 
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
             responseDTO.setSettleUpTransactions(settleUpTransactions);
@@ -40,7 +40,7 @@ public class SettleUpController {
         SettleUpGroupResponseDTO responseDTO = new SettleUpGroupResponseDTO();
 
         try{
-            List<Expense> settleUpTransactions = settleUpService.settleUpGroup(requestDTO.getGroupId());
+            List<Transaction> settleUpTransactions = settleUpService.settleUpGroup(requestDTO.getGroupId());
 
             responseDTO.setResponseStatus(ResponseStatus.SUCCESS);
             responseDTO.setSettleUpTransactions(settleUpTransactions);

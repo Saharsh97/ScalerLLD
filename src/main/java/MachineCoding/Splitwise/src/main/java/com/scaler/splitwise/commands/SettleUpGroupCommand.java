@@ -1,26 +1,22 @@
 package com.scaler.splitwise.commands;
 
-import com.scaler.splitwise.controllers.DTOs.SettleUpUserRequestDTO;
-import com.scaler.splitwise.controllers.DTOs.SettleUpUserResponseDTO;
+import com.scaler.splitwise.controllers.DTOs.SettleUpGroupRequestDTO;
+import com.scaler.splitwise.controllers.DTOs.SettleUpGroupResponseDTO;
 import com.scaler.splitwise.controllers.SettleUpController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
-public class SettleUpUserCommand implements Command{
-
+public class SettleUpGroupCommand implements Command{
     private SettleUpController settleUpController;
 
     @Autowired
-    public SettleUpUserCommand(SettleUpController settleUpController){
+    public SettleUpGroupCommand(SettleUpController settleUpController){
         this.settleUpController = settleUpController;
     }
-
     @Override
     public boolean matches(String input) {
-        // input: SettleUpUser userId
+        // SettleUpGroup groupId
         String[] words = input.split(" ");
-        if(words.length == 2 && words[0].equals("SettleUpUser")){
+        if(words.length == 2 && words[0].equals("SettleUpGroup")){
             return true;
         }
         return false;
@@ -29,15 +25,15 @@ public class SettleUpUserCommand implements Command{
     @Override
     public void execute(String input) {
         String[] words = input.split(" ");
-        Long userId = Long.valueOf(words[1]);
+        Long groupId = Long.valueOf(words[1]);
 
         // now call the controller.
         // controller will be called by passing what? DTO
-        SettleUpUserRequestDTO settleUpUserRequestDTO = new SettleUpUserRequestDTO();
-        settleUpUserRequestDTO.setUserId(userId);
+        SettleUpGroupRequestDTO settleUpUserRequestDTO = new SettleUpGroupRequestDTO();
+        settleUpUserRequestDTO.setGroupId(groupId);
 
         // to call the controller, we need to inject the controller.
-        SettleUpUserResponseDTO settleUpUserResponseDTO = settleUpController.settleUpUser(settleUpUserRequestDTO);
+        SettleUpGroupResponseDTO settleUpUserResponseDTO = settleUpController.settleUpGroup(settleUpUserRequestDTO);
         System.out.println(settleUpUserResponseDTO.getResponseStatus());
     }
 }

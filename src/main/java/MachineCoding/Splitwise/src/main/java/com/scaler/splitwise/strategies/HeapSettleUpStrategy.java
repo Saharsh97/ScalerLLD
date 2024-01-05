@@ -1,9 +1,11 @@
 package com.scaler.splitwise.strategies;
 
 import com.scaler.splitwise.models.Expense;
+import com.scaler.splitwise.models.Transaction;
 import com.scaler.splitwise.models.User;
 import com.scaler.splitwise.models.UserExpense;
 import com.scaler.splitwise.models.enums.ExpenseType;
+import com.scaler.splitwise.models.enums.TransactionStatus;
 import com.scaler.splitwise.models.enums.UserExpenseType;
 import org.springframework.data.util.Pair;
 
@@ -11,8 +13,18 @@ import java.util.*;
 
 public class HeapSettleUpStrategy implements SettleUpStrategy{
     @Override
-    public List<Expense> settleUp(List<Expense> expensesToSettleUp) {
+    public List<Transaction> settleUp(List<Expense> expensesToSettleUp) {
         // homework to do. refer splitwise class 1.
+
+        // lets add the completed transactions.
+        // these are Expenses marked by SETTLE_UP_TRANSACTION
+        // these are reverse expenses
+        List<Transaction> settleUpTransactions = new ArrayList<>();
+        for(Expense expense: expensesToSettleUp) {   // for all expenses, real or reverse
+            if (expense.getExpenseType() == ExpenseType.SETTLE_UP_TRANSACTION) {
+                settleUpTransactions.add(getCompletedTransactionFromReverseExpense(expense));
+            }
+        }
 
         // Go through all the expenses
             // go through the userExpenseList
@@ -22,7 +34,7 @@ public class HeapSettleUpStrategy implements SettleUpStrategy{
                     // finalAmount[user] -= amount
 
         Map<User, Integer> finalAmount = new HashMap<>();
-        for(Expense expense: expensesToSettleUp){   // for all expenses, real or reverse
+        for(Expense expense: expensesToSettleUp) {
             for(UserExpense userExpense : expense.getUserExpenseList()){    // for this expense, whoPaid and whoHadToPay
                 User user = userExpense.getUser();
                 Integer existingAmountOnThisPerson = finalAmount.getOrDefault(user, 0);
@@ -37,7 +49,7 @@ public class HeapSettleUpStrategy implements SettleUpStrategy{
 
         // create 2 priority queues.
         PriorityQueue<Pair<User, Integer>> getterMaxQueue = new PriorityQueue<>(finalAmount.size(), Collections.reverseOrder());
-        PriorityQueue<Pair<User, Integer>> payerMaxQueue = new PriorityQueue<>();
+        PriorityQueue<Pair<User, Integer>> payerMaxQueue = new PriorityQueue<>(finalAmount.size());
 
 
         // iterate over finalCount map, add user to each queue.
@@ -50,7 +62,11 @@ public class HeapSettleUpStrategy implements SettleUpStrategy{
         }
 
 
-        List<Expense> settleUpTransactions = new ArrayList<>();
+        // while(PQs.notEmpty()){
+        //      max from PQ1 : Paid : A : receiveValue
+        //      min from PQ2 : HadToPay : B : payValue
+        // transaction from B->A, amount min(abs(receiveValue), abs(payValue))
+
         while(getterMaxQueue.size() > 0 && payerMaxQueue.size() > 0){
             Pair<User, Integer> X = getterMaxQueue.poll();
             Pair<User, Integer> Y = payerMaxQueue.poll();
@@ -65,19 +81,20 @@ public class HeapSettleUpStrategy implements SettleUpStrategy{
                 payerMaxQueue.add(updatedY);
             }
 
-            Expense transactionToBeDone = new Expense();
-            transactionToBeDone.setAmount(payAmount);
-            transactionToBeDone.setExpenseType(ExpenseType.REAL);
+            Transaction transactionToBeDone = new Transaction(Y.getFirst(), X.getFirst(), payAmount, TransactionStatus.PENDING);
 
-            settleUpTransactions.add(new Expense());
+            settleUpTransactions.add(transactionToBeDone);
         }
 
-        // while(PQs.notEmpty()){
-        //      max from PQ1 : Paid : A : receiveValue
-        //      min from PQ2 : HadToPay : B : payValue
-        // transaction from B->A, amount min(abs(receiveValue), abs(payValue))
+        return settleUpTransactions;
+    }
 
-
-        return null;
+    private Transaction getCompletedTransactionFromReverseExpense(Expense expense){
+        Transaction completedTransaction = new Transaction();
+        completedTransaction.setAmount(expense.getAmount());
+        completedTransaction.setTransactionStatus(TransactionStatus.DONE);
+        completedTransaction.setReceivingUser(expense.getUserExpenseList().stream().filter(userExpense -> userExpense.getUserExpenseType()==UserExpenseType.PAID).findFirst().get().getUser());
+        completedTransaction.setPayingUser(expense.getUserExpenseList().stream().filter(userExpense -> userExpense.getUserExpenseType()==UserExpenseType.HAD_TO_PAY).findFirst().get().getUser());
+        return completedTransaction;
     }
 }

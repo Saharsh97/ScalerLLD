@@ -1,6 +1,7 @@
 package com.scaler.splitwise.strategies;
 
 import com.scaler.splitwise.models.Expense;
+import com.scaler.splitwise.models.Transaction;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
 // @Component refers to a generic component
 // can replace @Repository with @Component
 public interface SettleUpStrategy {
-    public List<Expense> settleUp(List<Expense> expensesToSettleUp);
+    public List<Transaction> settleUp(List<Expense> expensesToSettleUp);
 }

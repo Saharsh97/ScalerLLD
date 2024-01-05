@@ -1,9 +1,6 @@
 package com.scaler.splitwise.service;
 
-import com.scaler.splitwise.models.Expense;
-import com.scaler.splitwise.models.Group;
-import com.scaler.splitwise.models.User;
-import com.scaler.splitwise.models.UserExpense;
+import com.scaler.splitwise.models.*;
 import com.scaler.splitwise.repositories.ExpenseRepository;
 import com.scaler.splitwise.repositories.GroupRepository;
 import com.scaler.splitwise.repositories.UserExpenseRepository;
@@ -32,7 +29,7 @@ public class SettleUpService {
         this.settleUpStrategy = settleUpStrategy;
     }
 
-    public List<Expense> settleUpUser(Long userId){
+    public List<Transaction> settleUpUser(Long userId){
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isEmpty()){
             throw new RuntimeException("group not found");
@@ -59,13 +56,13 @@ public class SettleUpService {
 
         // 2. iterate through all the expenses, to check who pays to whom
         // 3. generating transactions to settle up
-        List<Expense> settleUpTransactions = settleUpStrategy.settleUp(expenses.stream().toList());
+        List<Transaction> settleUpTransactions = settleUpStrategy.settleUp(expenses.stream().toList());
 
         // 4. return transactions.
         return settleUpTransactions;
     }
 
-    public List<Expense> settleUpGroup(Long groupId){
+    public List<Transaction> settleUpGroup(Long groupId){
         // get the group using groupId
         Optional<Group> optionalGroup = groupRepository.findById(groupId);
         if(optionalGroup.isEmpty()){
@@ -80,7 +77,7 @@ public class SettleUpService {
 
         // 2. iterate through all the expenses, to check who pays to whom
         // 3. generating transactions to settle up
-        List<Expense> settleUpTransactions = settleUpStrategy.settleUp(expenses);
+        List<Transaction> settleUpTransactions = settleUpStrategy.settleUp(expenses);
 
         // 4. return transactions.
         return settleUpTransactions;
