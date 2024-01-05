@@ -19,9 +19,13 @@ public class Group extends BaseModel{
     @ManyToMany
     private List<User> members;
 
-    @OneToMany
-    private List<Expense> expenses; // ideally it should have been groupId in expense table.
-    // but here, a separate mapping is created.
+    @OneToMany(mappedBy = "group")
+    private List<Expense> expenses;
+    // ideally it should have been groupId in expense table.
+    // but here,
+    // from group, I wanted to get expenses. so mapping table.
+    // no need for expense table having groupId.
+    // so no column of groupId in expense table
     // create FK in only one table, not in both the tables (default behaviour)
 
     @ManyToOne
