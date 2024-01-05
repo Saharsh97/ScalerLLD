@@ -43,14 +43,18 @@ public class SettleUpService {
         // how to get this?? In Expense we cannot directly those corresponding to this user.
         // Expense has UserExpense list.
         List<UserExpense> userExpenseList = userExpenseRepository.findAllByUser(user);
+
         // need to extract List<Expense> and give to strategy
-        Set<Expense> expenses = new HashSet<>();        // why????
+        Set<Expense> expenses = new HashSet<>();
+        // expense1 : whoPaid has A : 1000
+        // expense1 : whoHadToPay has A : 500
+        // both will add the same expense, expense1 twice in the list.
+        // so use set.
         for(UserExpense userExpense: userExpenseList){
             expenses.add(userExpense.getExpense());
             // any checks here?
             // expenses contains what type of expenses? REAL and SETTLE_UP_TRANSACTIONS
-            // do we need both of them? Yes!
-
+            // do we need both of them to calculate List of transactions? Yes!
         }
 
         // 2. iterate through all the expenses, to check who pays to whom
