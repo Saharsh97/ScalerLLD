@@ -11,3 +11,22 @@ public class SplitwiseApplication {
     }
 
 }
+
+
+// Agenda
+// Implement
+    // Models
+    // Set up our codebase of settleUpUser
+    // Commands
+
+// HW
+// Heap Algorithm
+// completing the controller flow, and make the controller work.
+// register
+// add user in group
+// add expense to group
+
+
+// /settleUp: Associated to User. Will the User model be really affected?
+// /settleUpGroup: Associated to Group. same here.
+// so we have settleUpController
