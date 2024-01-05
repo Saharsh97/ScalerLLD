@@ -14,9 +14,6 @@ public class Expense extends BaseModel{
     private String description;
     private int amount;
 
-    @ManyToOne
-    private User createdBy;
-
     @Enumerated(EnumType.ORDINAL)
     private ExpenseType expenseType;
 

@@ -16,20 +16,20 @@ import java.util.List;
 public class Group extends BaseModel{
     private String name;
 
+    @ManyToOne
+    private User createdBy;
+
     @ManyToMany
     private List<User> members;
 
     @OneToMany(mappedBy = "group")
     private List<Expense> expenses;
     // ideally it should have been groupId in expense table.
-    // but here,
+    // but here, my use-case is
     // from group, I wanted to get expenses. so mapping table.
     // no need for expense table having groupId.
     // so no column of groupId in expense table
     // create FK in only one table, not in both the tables (default behaviour)
-
-    @ManyToOne
-    private User createdBy;
 }
 
 
