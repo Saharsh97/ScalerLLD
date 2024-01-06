@@ -1,9 +1,9 @@
 package com.scaler.splitwise.repositories;
 
-import com.scaler.splitwise.models.Group;
+import com.scaler.splitwise.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 }
