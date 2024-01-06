@@ -11,3 +11,19 @@ public class SplitwiseApplication {
     }
 
 }
+
+
+// Agenda
+// Implement
+    // Models
+    // Set up our codebase of settleUpUser
+    // Commands
+
+// HW
+// register : UserController
+// add user in group : GroupController
+// add expense to group : ExpenseController
+
+// settleUpUser : UserController X
+// settleUpGroup : GroupController X
+//                 SettleUpController

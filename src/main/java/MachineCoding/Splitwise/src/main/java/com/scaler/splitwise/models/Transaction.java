@@ -2,11 +2,14 @@ package com.scaler.splitwise.models;
 
 import com.scaler.splitwise.models.enums.TransactionStatus;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+// response object.
+// this is not stored as a table!
 public class Transaction {
     private User payingUser;
     private User receivingUser;
@@ -22,3 +25,7 @@ public class Transaction {
         this.transactionStatus = transactionStatus;
     }
 }
+
+// J -> R : 500 DONE
+// S -> J : 100 PENDING
+//

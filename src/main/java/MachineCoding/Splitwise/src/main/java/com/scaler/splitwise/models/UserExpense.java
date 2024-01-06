@@ -23,3 +23,6 @@ public class  UserExpense extends BaseModel {
     @Enumerated(EnumType.ORDINAL)
     private UserExpenseType userExpenseType;
 }
+
+// expense1: whoPaid: A = 500, B = 300
+//       whoHadToPay: A = 100 B = 100 C = 600
